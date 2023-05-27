@@ -14,5 +14,6 @@ This procject aim to modify an old home security system to a modern security sys
 [Circuits Documantation](https://www.notion.so/Circuit-documentation-7705611901ab4a54a87975510d0e94b6?pvs=4)
 
 # Contributer 
-
+* Ebrahim Abdelghfar Ebrahim
+* Abdallah Ibrahim
 
