@@ -1,29 +1,27 @@
 #include <wiringPi.h>
-#include <string>
+#include <iostream>
 
 const int NUM_OF_ROOMS = 11;
 
-const int HALL=0, BATH=1;
+/*Define pins numbers*/
 
-enum pin {
-    HALL = 0,
-    BATH = 1
-};
+#define PIN_BATH 1
+#define PIN_TEST_LED 7
 
-int main (void)
+int main (int argc, char **argv)
 {
+    // Setup WiringPi library
     wiringPiSetup() ;
-    pinMode(GPIO_PIN, OUTPUT);
-    // Create an a list of all rooms
-    pin Pin;
-    Pin = HALL;
-    int 
-    for(int i=0; i < NUM_OF_ROOMS; ++i){
-        
-    }
-    for (;;){
-        digitalWrite (0, HIGH) ; delay (500) ;
-        digitalWrite (0,  LOW) ; delay (500) ;
-    }
+    // Setup Mode for all defined pins
+    pinMode(PIN_BATH, INPUT);
+    pinMode(PIN_TEST_LED, OUTPUT);
+    // check state of each pin
+    /*for (;;){
+	if(digitalRead(PIN_BATH==HIGH){
+	    std::cout << "Bath door is open: pin number 4\n";
+	    digitalWrite(PIN_TEST_LED, HIGH);
+	}
+    }*/
+    std::cout << "Compiled Fine!!\n";
     return 0 ;
 }
