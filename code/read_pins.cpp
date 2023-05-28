@@ -17,7 +17,6 @@ int main (void)
     // Create an a list of all rooms
     pin Pin;
     Pin = HALL;
-    int 
     for(int i=0; i < NUM_OF_ROOMS; ++i){
         
     }
