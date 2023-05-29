@@ -33,7 +33,7 @@
 
 /* Define Pins */
 //#define PIN_TEST_LED    7
-#define PIN_REED    30
+#define PIN_REED    27
 
 
 int main(int argc, char *argv[])
