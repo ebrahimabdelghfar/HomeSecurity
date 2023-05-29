@@ -28,9 +28,9 @@
 #define DEFAULT_VERBOSITY_LEVEL     0
 #define DEFAULT_TRANSPORT           ""
 #define DEFAULT_HOSTNAME            "iot.thinger.io"
-#define DEFAULT_USERNAME            ""
-#define DEFAULT_DEVICE              ""
-#define DEFAULT_CREDENTIAL          ""
+#define DEFAULT_USERNAME            "Ahmedsecurity"
+#define DEFAULT_DEVICE              "HomeSecurityTestRaspberryPi"
+#define DEFAULT_CREDENTIAL          "GzD9--_9MJ22XP?M"
 
 // Define pins
 
@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
         }
     });
 
-    /* Raspberry PI Code */
+    /* Raspberry PI Code /
     // Setup pins
     // pinMode(HALL, input);
     pson pin_value;
@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
     if(client.set_property("HALL", pin_value, true)){
         THINGER_LOG("HALL state is: %d", pin_value);
     }
-
+    */
     // start client
     client.start();
 
