@@ -1,3 +1,0 @@
-/home/ebrahim/Projects/HomeSecurity/code/tests/thinger_client/build/CMakeFiles/rebuild_cache.dir
-/home/ebrahim/Projects/HomeSecurity/code/tests/thinger_client/build/CMakeFiles/edit_cache.dir
-/home/ebrahim/Projects/HomeSecurity/code/tests/thinger_client/build/CMakeFiles/thinger.dir

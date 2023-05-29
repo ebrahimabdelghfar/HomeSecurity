@@ -32,8 +32,8 @@
 #define DEVICE_CREDENTIAL   "h6PGGctC1zQTsrtP"
 
 /* Define Pins */
-#define PIN_TEST_LED    7
-#define PIN_BATH    1
+//#define PIN_TEST_LED    7
+#define PIN_REED    30
 
 
 int main(int argc, char *argv[])
@@ -43,12 +43,13 @@ int main(int argc, char *argv[])
     // Setup WiringPi library
     wiringPiSetup();
     // Setup Mode for all defined pins
-    pinMode(PIN_TEST_LED, OUTPUT);
-    pinMode(PIN_BATH, INPUT);
+    //pinMode(PIN_TEST_LED, OUTPUT);
+    pinMode(PIN_REED, INPUT);
+    pullUpDnControl(PIN_REED, PUD_UP);
 
     // check state of each pin
-    thing["BathDoor"] << [](pson &in){
-        digitalRead(PIN_BATH);
+    thing["reed_switch"] << [](pson &in){
+        digitalRead(PIN_REED);
     };
 
     thing.start();

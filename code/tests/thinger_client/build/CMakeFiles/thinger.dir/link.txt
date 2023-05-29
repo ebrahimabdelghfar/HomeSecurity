@@ -1,1 +1,0 @@
-/usr/bin/c++  -std=c++11 -lwiringPi -O3 -DNDEBUG -rdynamic CMakeFiles/thinger.dir/src/main.cpp.o -o thinger  -Wl,-rpath,/usr/local/lib -lssl -lcrypto /usr/local/lib/libwiringPi.so 
