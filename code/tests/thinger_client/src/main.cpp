@@ -32,9 +32,10 @@
 #define DEVICE_CREDENTIAL   "h6PGGctC1zQTsrtP"
 
 /* Define Pins */
-//#define PIN_TEST_LED    7
+#define PIN_TEST_LED    3
 #define PIN_REED    2
 
+bool STATE = false;
 
 int main(int argc, char *argv[])
 {
@@ -43,13 +44,24 @@ int main(int argc, char *argv[])
     // Setup WiringPi library
     wiringPiSetup();
     // Setup Mode for all defined pins
-    //pinMode(PIN_TEST_LED, OUTPUT);
+    pinMode(PIN_TEST_LED, OUTPUT);
     pinMode(PIN_REED, INPUT);
     pullUpDnControl(PIN_REED, PUD_UP);
 
     // check state of each pin
     thing["reed_switch"] >> [](pson &out){
         out = bool(digitalRead(PIN_REED));
+    };
+    thing["led"] << [](pson &in){
+        if(in.is_empty()){
+            // We send back the pin value to thinger platform
+            in = STATE;
+        }   
+        else{
+            // This code is called whenever the "led" resource change
+            STATE = in;
+            digitalWrite(PIN_TEST_LED, STATE);
+        }
     };
 
     thing.start();
