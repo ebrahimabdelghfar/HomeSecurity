@@ -9,6 +9,16 @@
         "cstring": "cpp",
         "array": "cpp",
         "string": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "fstream": "cpp",
+        "iosfwd": "cpp",
+        "istream": "cpp",
+        "limits": "cpp",
+        "shared_mutex": "cpp",
+        "sstream": "cpp",
+        "exception": "cpp",
+        "memory_resource": "cpp",
+        "new": "cpp",
+        "ostream": "cpp"
     }
 }

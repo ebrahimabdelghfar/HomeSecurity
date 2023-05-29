@@ -1,0 +1,3 @@
+/home/abdallah/Projects/pi/HomeSecurity/code/IOTMP-Linux/build/CMakeFiles/rebuild_cache.dir
+/home/abdallah/Projects/pi/HomeSecurity/code/IOTMP-Linux/build/CMakeFiles/edit_cache.dir
+/home/abdallah/Projects/pi/HomeSecurity/code/IOTMP-Linux/build/CMakeFiles/thinger.dir

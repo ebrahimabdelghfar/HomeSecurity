@@ -22,18 +22,33 @@
 // THE SOFTWARE.
 
 #include "thinger/thinger.h"
+#include <wiringPi.h>
+#include <iostream>
 
-#define USER_ID             "YOUR_USER_ID"
-#define DEVICE_ID           "YOUR_DEVICE_ID"
-#define DEVICE_CREDENTIAL   "YOUR_DEVICE_CREDENTIAL"
+
+/* User Credentials */
+#define USER_ID             "Ahmedsecurity"
+#define DEVICE_ID           "TestRaspberry"
+#define DEVICE_CREDENTIAL   "h6PGGctC1zQTsrtP"
+
+/* Define Pins */
+#define PIN_TEST_LED    7
+#define PIN_BATH    1
+
 
 int main(int argc, char *argv[])
 {
+    // initialize thinger.io library
     thinger_device thing(USER_ID, DEVICE_ID, DEVICE_CREDENTIAL);
+    // Setup WiringPi library
+    wiringPiSetup();
+    // Setup Mode for all defined pins
+    pinMode(PIN_TEST_LED, OUTPUT);
+    pinMode(PIN_BATH, INPUT);
 
-    // define thing resources here. i.e, this is a sum example
-    thing["sum"] = [](pson& in, pson& out){
-        out["result"] = (int) in["value1"] + (int) in["value2"];
+    // check state of each pin
+    thing["BathDoor"] << [](pson &in){
+        digitalRead(PIN_BATH);
     };
 
     thing.start();
