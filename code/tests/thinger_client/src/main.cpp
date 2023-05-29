@@ -33,7 +33,7 @@
 
 /* Define Pins */
 //#define PIN_TEST_LED    7
-#define PIN_REED    27
+#define PIN_REED    30
 
 
 int main(int argc, char *argv[])
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     pullUpDnControl(PIN_REED, PUD_UP);
 
     // check state of each pin
-    thing["reed_switch"] << [](pson &in){
+    thing["reed_switch"] >> [](pson &in){
         digitalRead(PIN_REED);
     };
 
