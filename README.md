@@ -1,4 +1,4 @@
-## GIPO pins Testing
+## GPIO pins Testing
 
 - head to https://www.pitunnel.com/devices
 - login to the Raspberry Pi
@@ -6,7 +6,7 @@
 
 ```bash
 # cd to the code dir
-cd Projects/HomeSecurity/code/tests
+cd Projects/HomeSecurity/code/tests/read_pins
 # open the read_pins.cpp file & make your changes
 nano read_pins.cpp
 # compile the file
@@ -16,6 +16,21 @@ g++ -Wall -o read_pins read_pins.cpp -lwiringPi
 ```
 
 ## [Thingers-io](http://Thingers.io) client Testing
+**Test thinger client with the test circuit**
 
-#### [Guide Link](https://www.whitelist1.com/2017/08/thingerio-iot-platform-ii-controlling.html)
+> [Guide Link](https://www.whitelist1.com/2017/08/thingerio-iot-platform-ii-controlling.html)
+
+```bash
+cd Projects/HomeSecurity/code/tests/thinger_client
+./run.sh
+```
+
+## Testing Notes
+- We can use the gpio utility to check pins
+- Reference [GPIO Docs](http://wiringpi.com/the-gpio-utility/)
+```bash
+gpio read pin_num # reads pin state
+gpio readall # shows all pins
+gpio mode pin_num state # set pin mode in/out/up(Pullup)/down
+```
 

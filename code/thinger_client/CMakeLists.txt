@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.8.9)
 project(thinger)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
-
 # check c++11 support
 include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
@@ -43,18 +42,18 @@ ELSE()
 ENDIF()
 
 set(SOURCE_FILES src/main.cpp)
-
+message(STATUS ${CMAKE_SOURCE_DIR})
 # set OpenSSL if available
 add_definitions( -DOPEN_SSL=${OPEN_SSL} )
 
 # Support for WiringPi on Raspberry
-if(RASPBERRY)
-    find_package(WiringPi)
+    find_package(WiringPi REQUIRED)
     if(WiringPi_FOUND)
         include_directories(${WiringPi_INCLUDE_DIR})
+        message(STATUS "Found WiringPi")
         list(APPEND ADDITIONAL_LIBS ${WiringPi_LIBRARIES})
     endif()
-endif()
+
 
 if(DAEMON)
     # daemon service that can be installed as a linux service
@@ -76,5 +75,3 @@ else()
     target_link_libraries(thinger ${ADDITIONAL_LIBS})
     set_target_properties(thinger PROPERTIES COMPILE_DEFINITIONS "DAEMON=0")
 endif()
-
-
