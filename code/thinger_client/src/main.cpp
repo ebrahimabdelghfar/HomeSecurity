@@ -89,12 +89,12 @@ int main(int argc, char *argv[])
     // Front Door pin
     pinMode(PIN_F_DOOR, INPUT);
     pullUpDnControl(PIN_F_DOOR, PUD_UP);
-    // Master Bath pin
-    pinMode(PIN_MASTER_BATH, INPUT);
-    pullUpDnControl(PIN_MASTER_BATH, PUD_UP);
     // Master SOO pin
     pinMode(PIN_MASTER_SOO, INPUT);
     pullUpDnControl(PIN_MASTER_SOO, PUD_UP);
+    // Master Bath pin
+    pinMode(PIN_MASTER_BATH, INPUT);
+    pullUpDnControl(PIN_MASTER_BATH, PUD_UP);
     /*------------------------------------*/
 
     /* Handle Pins I/O && update dashboard */
@@ -143,14 +143,14 @@ int main(int argc, char *argv[])
         out = bool(digitalRead(PIN_F_DOOR));
         if(out) ANY_SENSOR_TRIGGERED = true;
     };
-    // Master Bath pin
-    thing["master_bath"] >> [](pson &out){
-        out = bool(digitalRead(PIN_MASTER_BATH));
-        if(out) ANY_SENSOR_TRIGGERED = true;
-    };
     // Master SOO pin
     thing["master_soo"] >> [](pson &out){
         out = bool(digitalRead(PIN_MASTER_SOO));
+        if(out) ANY_SENSOR_TRIGGERED = true;
+    };
+    // Master Bath pin
+    thing["master_bath"] >> [](pson &out){
+        out = bool(digitalRead(PIN_MASTER_BATH));
         if(out) ANY_SENSOR_TRIGGERED = true;
     };
     // Siren pin
