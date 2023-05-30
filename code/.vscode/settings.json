@@ -1,0 +1,24 @@
+{
+    "files.associations": {
+        "*.tcc": "cpp",
+        "bitset": "cpp",
+        "streambuf": "cpp",
+        "regex": "cpp",
+        "core": "cpp",
+        "*.ipp": "cpp",
+        "cstring": "cpp",
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "fstream": "cpp",
+        "iosfwd": "cpp",
+        "istream": "cpp",
+        "limits": "cpp",
+        "shared_mutex": "cpp",
+        "sstream": "cpp",
+        "exception": "cpp",
+        "memory_resource": "cpp",
+        "new": "cpp",
+        "ostream": "cpp"
+    }
+}
