@@ -99,6 +99,7 @@ int main(int argc, char *argv[])
         out = bool(digitalRead(PIN_OPE));
         if(out){
 		 ANY_SENSOR_TRIGGERED = true;
+		thing.call_endpoint("emailsender","ALERT");
 	}
     };
     // Living and Nook pin
@@ -113,8 +114,7 @@ int main(int argc, char *argv[])
     };
     // Laundry Room pin
     thing["laundry_room"] >> [](pson &out){
-        out = bool(digitalRead(PIN_LAUNDRY_ROOM));
-        if(out) ANY_SENSOR_TRIGGERED = true;
+        out = bool(digitalRead(PIN_LAUNDRY_ROOM));        if(out) ANY_SENSOR_TRIGGERED = true;
     };
     // 115 GRR pin
     thing["115_grr"] >> [](pson &out){

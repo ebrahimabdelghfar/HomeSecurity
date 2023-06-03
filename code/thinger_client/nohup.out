@@ -1,0 +1,64 @@
+-- OpenSSL Version: 1.1.1n
+-- /home/ahmed/HomeSecurity/code/thinger_client
+-- Found WiringPi
+-- Configuring done
+CMake Error: Cannot open file for write: /home/ahmed/HomeSecurity/code/thinger_client/build/CMakeCache.txt.tmp
+CMake Error: : System Error: Permission denied
+CMake Error: Unable to open cache file for save. /home/ahmed/HomeSecurity/code/thinger_client/build/CMakeCache.txt
+CMake Error: : System Error: Permission denied
+Built target thinger
+2204570.655000 [NETWORK] Starting connection...
+2204570.683000 [_SOCKET] Connecting to iot.thinger.io:25202...
+2204570.683000 [_SOCKET] Using secure TLS/SSL connection: yes
+2204571.039000 [_SOCKET] Connected!
+2204571.039000 [THINGER] Authenticating. User: Ahmedsecurity Device: TestRaspberry
+2204572.062000 [THINGER] Authenticated
+2204572.062000 [NETWORK] Connected!
+-- OpenSSL Version: 1.1.1n
+-- /home/ahmed/HomeSecurity/code/thinger_client
+-- Found WiringPi
+-- Configuring done
+CMake Error: Cannot open file for write: /home/ahmed/HomeSecurity/code/thinger_client/build/CMakeCache.txt.tmp
+CMake Error: : System Error: Permission denied
+CMake Error: Unable to open cache file for save. /home/ahmed/HomeSecurity/code/thinger_client/build/CMakeCache.txt
+CMake Error: : System Error: Permission denied
+Built target thinger
+2204821.699000 [NETWORK] Starting connection...
+2204821.757000 [_SOCKET] Connecting to iot.thinger.io:25202...
+2204821.758000 [_SOCKET] Using secure TLS/SSL connection: yes
+2204822.116000 [_SOCKET] Connected!
+2204822.116000 [THINGER] Authenticating. User: Ahmedsecurity Device: TestRaspberry
+2204823.016000 [THINGER] Authenticated
+2204823.016000 [NETWORK] Connected!
+2206490.892000 [_SOCKET] Timeout!
+2206490.892000 [_SOCKET] Is now closed!
+2206490.892000 [NETWORK] Starting connection...
+2206490.918000 [_SOCKET] Connecting to iot.thinger.io:25202...
+2206490.918000 [_SOCKET] Using secure TLS/SSL connection: yes
+2206491.463000 [_SOCKET] Connected!
+2206491.463000 [THINGER] Authenticating. User: Ahmedsecurity Device: TestRaspberry
+2206492.486000 [THINGER] Authenticated
+2206492.486000 [NETWORK] Connected!
+2206493.252000 [_SOCKET] Timeout!
+2206493.252000 [_SOCKET] Is now closed!
+2206493.252000 [NETWORK] Starting connection...
+2206493.282000 [_SOCKET] Connecting to iot.thinger.io:25202...
+2206493.282000 [_SOCKET] Using secure TLS/SSL connection: yes
+2206493.908000 [_SOCKET] Connected!
+2206493.908000 [THINGER] Authenticating. User: Ahmedsecurity Device: TestRaspberry
+2206494.954000 [THINGER] Authenticated
+2206494.955000 [NETWORK] Connected!
+-- OpenSSL Version: 1.1.1n
+-- /home/ahmed/HomeSecurity/code/thinger_client
+-- Found WiringPi
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ahmed/HomeSecurity/code/thinger_client/build
+[100%] Built target thinger
+2208967.732000 [NETWORK] Starting connection...
+2208967.797000 [_SOCKET] Connecting to iot.thinger.io:25202...
+2208967.797000 [_SOCKET] Using secure TLS/SSL connection: yes
+2208968.158000 [_SOCKET] Connected!
+2208968.158000 [THINGER] Authenticating. User: Ahmedsecurity Device: TestRaspberry
+2208969.040000 [THINGER] Authenticated
+2208969.040000 [NETWORK] Connected!
