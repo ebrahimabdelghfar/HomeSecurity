@@ -147,6 +147,9 @@ int main(int argc, char *argv[])
         if(out) ANY_SENSOR_TRIGGERED = true;
     };
     // Siren pin
+    /* off -> dash = in = off*
+    dash = in = on (no sens), write low
+    */
     thing["siren"] << [](pson &in){
         if(in.is_empty()){
             // We send back the pin value to thinger platform
@@ -156,7 +159,10 @@ int main(int argc, char *argv[])
             // This code is called whenever the "led" resource change
             DASHBOARD_SECURITY_STATE = in;
             if(DASHBOARD_SECURITY_STATE && ANY_SENSOR_TRIGGERED){
-                digitalWrite(PIN_SIREN, DASHBOARD_SECURITY_STATE);
+                digitalWrite(PIN_SIREN, HIGH);
+            }
+            else{
+                digitalWrite(PIN_SIREN, LOW);
             }
         }
     };

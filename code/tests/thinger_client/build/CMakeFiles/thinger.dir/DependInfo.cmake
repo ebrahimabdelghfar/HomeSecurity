@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ebrahim/Projects/HomeSecurity/code/tests/thinger_client/src/main.cpp" "/home/ebrahim/Projects/HomeSecurity/code/tests/thinger_client/build/CMakeFiles/thinger.dir/src/main.cpp.o"
+  "/home/abdallah/Projects/pi/HomeSecurity/code/tests/thinger_client/src/main.cpp" "/home/abdallah/Projects/pi/HomeSecurity/code/tests/thinger_client/build/CMakeFiles/thinger.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

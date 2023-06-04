@@ -22,14 +22,14 @@
 // THE SOFTWARE.
 
 #include "thinger/thinger.h"
-#include <wiringPi.h>
+//#include <wiringPi.h>
 #include <iostream>
 
 
 /* User Credentials */
 #define USER_ID             "Ahmedsecurity"
-#define DEVICE_ID           "TestRaspberry"
-#define DEVICE_CREDENTIAL   "h6PGGctC1zQTsrtP"
+#define DEVICE_ID           "TestPC"
+#define DEVICE_CREDENTIAL   "TNer1ANe2RYT5Dih"
 
 /* Define Pins */
 #define PIN_TEST_LED    3
@@ -37,10 +37,14 @@
 
 bool STATE = false;
 
+bool DASH_STATE = false;
+bool ANY_SENS = true;
+
 int main(int argc, char *argv[])
 {
     // initialize thinger.io library
     thinger_device thing(USER_ID, DEVICE_ID, DEVICE_CREDENTIAL);
+    /* WIRING PI PART
     // Setup WiringPi library
     wiringPiSetup();
     // Setup Mode for all defined pins
@@ -63,6 +67,27 @@ int main(int argc, char *argv[])
             digitalWrite(PIN_TEST_LED, STATE);
         }
     };
+    */
+
+   // SIREN PART
+   thing["siren"] << [](pson &in){
+        if(in.is_empty()){
+            // We send back the pin value to thinger platform
+            in = DASH_STATE;
+        } 
+        else{
+            // This code is called whenever the "led" resource change
+            DASH_STATE = in;
+            if(DASH_STATE && ANY_SENS){
+                std::cout << "Siren is ON: WIWAWIWAWIWA" << std::endl;
+            }
+            else{
+                std::cout << "Siren is OFF: ZZZZZZZZZ" << std::endl;
+            }
+        }
+    };
+
+   /*MAIL PART*/
 
     thing.start();
     return 0;
