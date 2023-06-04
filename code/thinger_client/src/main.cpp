@@ -30,6 +30,7 @@
 #define USER_ID             "Ahmedsecurity"
 #define DEVICE_ID           "TestRaspberry"
 #define DEVICE_CREDENTIAL   "h6PGGctC1zQTsrtP"
+#define EMAIL_ENDPOINT_ID   "email"
 
 /* Define Pins */
 const int PINS_NUM = 12;
@@ -49,6 +50,7 @@ const int PINS_NUM = 12;
 
 bool DASHBOARD_SECURITY_STATE = false; // Dashboard Security Switch State (ON/OFF)
 bool ANY_SENSOR_TRIGGERED = false; // Checks if Any Sensor is Triggered (ON/OFF)
+bool SENT_EMAILS = false; // Checks if any email was sent
 
 int main(int argc, char *argv[])
 {
@@ -147,9 +149,6 @@ int main(int argc, char *argv[])
         if(out) ANY_SENSOR_TRIGGERED = true;
     };
     // Siren pin
-    /* off -> dash = in = off*
-    dash = in = on (no sens), write low
-    */
     thing["siren"] << [](pson &in){
         if(in.is_empty()){
             // We send back the pin value to thinger platform
@@ -167,6 +166,24 @@ int main(int argc, char *argv[])
         }
     };
     /*------------------------------------*/
+
+    /* Handle Email Endpoint*/
+    while(true){
+        if(DASHBOARD_SECURITY_STATE && ANY_SENSOR_TRIGGERED){
+            if(!SENT_EMAILS){
+                pson data;
+                bool res = thing.call_endpoint(EMAIL_ENDPOINT_ID, data);
+                SENT_EMAILS = true;
+                std::cout << "EMAIL NO SENT: " << res << std::endl;
+            }  
+        }
+        else{
+            SENT_EMAILS = false;
+        }
+        thing.handle(); 
+    }
+    /*------------------------------------*/
+
     // RESET SENSOR_TRIGGED FLAG
     ANY_SENSOR_TRIGGERED = false;
     // This function will be called every time the device is connected to Thinger.io

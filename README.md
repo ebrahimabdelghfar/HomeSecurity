@@ -13,9 +13,46 @@ This procject aim to modify an old home security system to a modern security sys
 
 
 # Docs
-[Circuits Documantation](https://www.notion.so/Circuit-documentation-7705611901ab4a54a87975510d0e94b6?pvs=4)
+[Circuits Documentation](https://www.notion.so/Circuit-documentation-7705611901ab4a54a87975510d0e94b6?pvs=4)
 
-# Contributer 
+## Files Structure
+```bash
+.
+├── code
+│   ├── ss.txt
+│   ├── tests
+│   │   ├── README.md
+│   │   ├── read_pins
+│   │   │   └── read_pins.cpp
+│   │   └── thinger_client
+│   │       ├── build
+│   │       ├── cmake
+│   │       ├── CMakeLists.txt
+│   │       ├── install
+│   │       ├── README.md
+│   │       ├── run.sh
+│   │       ├── src
+│   │       └── WiringPi
+│   └── thinger_client
+│       ├── cmake
+│       │   └── modules
+│       ├── CMakeLists.txt
+│       ├── install
+│       │   ├── intel_edison
+│       │   └── raspberry
+│       ├── README.md
+│       ├── run.sh
+│       └── src
+│           ├── main.cpp
+│           ├── thinger
+│           └── wiringPi.h
+├── docs
+│   └── s.txt
+└── Schematic
+    └── sssss.txt
+
+```
+
+# Contributers
 * Ebrahim Abdelghfar Ebrahim
 * Abdallah Ibrahim
-
