@@ -37,9 +37,9 @@
 #define PIN_REED    2
 
 /* Define State variables */
-bool STATE = false; // LED switch state
+bool SENS_STATE = false; // LED switch state
 bool DASH_STATE = false; // Dashboard switch state
-bool ANY_SENS = true; // check if any sensor is on
+int ANY_SENS = 0; // check if any sensor is on
 bool SENT_EMAILS = false; // check if any email was sent
 
 int main(int argc, char *argv[])
@@ -71,7 +71,27 @@ int main(int argc, char *argv[])
     };
     */
 
-   // SIREN PART
+    //
+    thing["AnySensor"] << [](pson &in){
+        if(in.is_empty()){
+            // We send back the pin value to thinger platform
+            in = SENS_STATE;
+        } 
+        else{
+            // This code is called whenever the "led" resource change
+            SENS_STATE = in;
+            if(SENS_STATE){
+                ANY_SENS++;
+            }
+            else{
+                ANY_SENS--;
+            }   
+        }
+        //
+        std::cout << "Any Sensor is: " << ANY_SENS << std::endl;
+    };
+
+    // SIREN PART
    thing["siren"] << [](pson &in){
         if(in.is_empty()){
             // We send back the pin value to thinger platform
@@ -88,31 +108,24 @@ int main(int argc, char *argv[])
             }
         }
     };
-
-   
-
     /*------------------*/
     /* End of Resources */
    /*------------------*/
 
-
    /*MAIL PART*/
     while(true){
+        thing.handle();
+        std::cout << "DASH STATE: " << DASH_STATE << " || " << "ANY SENSOR STATE: " << ANY_SENS << std::endl;
         if(DASH_STATE && ANY_SENS){
             if(!SENT_EMAILS){
                 pson data;
-                bool res = thing.call_endpoint(EMAIL_ENDPOINT_ID, data);
+                thing.call_endpoint(EMAIL_ENDPOINT_ID, data);
                 SENT_EMAILS = true;
-                std::cout << "EMAIL NO SENT: " << res << std::endl;
             }  
         }
         else{
             SENT_EMAILS = false;
         }
-        thing.handle(); 
     }
-    
-    // start thinger.io client
-    thing.start();
     return 0;
 }

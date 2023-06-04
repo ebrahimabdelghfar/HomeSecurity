@@ -49,8 +49,9 @@ const int PINS_NUM = 12;
 #define PIN_MASTER_BATH 27
 
 bool DASHBOARD_SECURITY_STATE = false; // Dashboard Security Switch State (ON/OFF)
-bool ANY_SENSOR_TRIGGERED = false; // Checks if Any Sensor is Triggered (ON/OFF)
 bool SENT_EMAILS = false; // Checks if any email was sent
+
+int SENSORS_TRIGGERED = 0; // Stores the number of triggered sensor (0-10)
 
 int main(int argc, char *argv[])
 {
@@ -99,54 +100,62 @@ int main(int argc, char *argv[])
     // OPE pin
     thing["ope"] >> [](pson &out){
         out = bool(digitalRead(PIN_OPE));
-        if(out){
-		 ANY_SENSOR_TRIGGERED = true;
-	}
+        if(out) ++SENSORS_TRIGGERED;
+        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
     };
     // Living and Nook pin
     thing["living_and_nook"] >> [](pson &out){
         out = bool(digitalRead(PIN_LIVING_AND_NOOK));
-        if(out) ANY_SENSOR_TRIGGERED = true;
+        if(out) ++SENSORS_TRIGGERED;
+        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
     };
     // Den Window pin
     thing["den_window"] >> [](pson &out){
         out = bool(digitalRead(PIN_DEN_WIN));
-        if(out) ANY_SENSOR_TRIGGERED = true;
+        if(out) ++SENSORS_TRIGGERED;
+        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
     };
     // Laundry Room pin
     thing["laundry_room"] >> [](pson &out){
         out = bool(digitalRead(PIN_LAUNDRY_ROOM));
-        if(out) ANY_SENSOR_TRIGGERED = true;
+        if(out) ++SENSORS_TRIGGERED;
+        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
     };
     // 115 GRR pin
     thing["115_grr"] >> [](pson &out){
         out = bool(digitalRead(PIN_115_GRR));
-        if(out) ANY_SENSOR_TRIGGERED = true;
+        if(out) ++SENSORS_TRIGGERED;
+        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
     };
     // Front Guest pin
     thing["front_guest"] >> [](pson &out){
         out = bool(digitalRead(PIN_FRONT_GUEST));
-        if(out) ANY_SENSOR_TRIGGERED = true;
+        if(out) ++SENSORS_TRIGGERED;
+        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
     };
     // Study pin
     thing["study"] >> [](pson &out){
         out = bool(digitalRead(PIN_STUDY));
-        if(out) ANY_SENSOR_TRIGGERED = true;
+        if(out) ++SENSORS_TRIGGERED;
+        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
     };
     // Hall pin
     thing["hall"] >> [](pson &out){
         out = bool(digitalRead(PIN_HALL));
-        if(out) ANY_SENSOR_TRIGGERED = true;
+        if(out) ++SENSORS_TRIGGERED;
+        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
     };
     // Front Door pin
     thing["front_door"] >> [](pson &out){
         out = bool(digitalRead(PIN_F_DOOR));
-        if(out) ANY_SENSOR_TRIGGERED = true;
+        if(out) ++SENSORS_TRIGGERED;
+        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
     };
     // Master Bath pin
     thing["master_bath"] >> [](pson &out){
         out = bool(digitalRead(PIN_MASTER_BATH));
-        if(out) ANY_SENSOR_TRIGGERED = true;
+        if(out) ++SENSORS_TRIGGERED;
+        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
     };
     // Siren pin
     thing["siren"] << [](pson &in){
@@ -157,7 +166,7 @@ int main(int argc, char *argv[])
         else{
             // This code is called whenever the "led" resource change
             DASHBOARD_SECURITY_STATE = in;
-            if(DASHBOARD_SECURITY_STATE && ANY_SENSOR_TRIGGERED){
+            if(DASHBOARD_SECURITY_STATE && SENSORS_TRIGGERED){
                 digitalWrite(PIN_SIREN, HIGH);
             }
             else{
@@ -169,7 +178,7 @@ int main(int argc, char *argv[])
 
     /* Handle Email Endpoint*/
     while(true){
-        if(DASHBOARD_SECURITY_STATE && ANY_SENSOR_TRIGGERED){
+        if(DASHBOARD_SECURITY_STATE && SENSORS_TRIGGERED){
             if(!SENT_EMAILS){
                 pson data;
                 bool res = thing.call_endpoint(EMAIL_ENDPOINT_ID, data);
@@ -183,10 +192,5 @@ int main(int argc, char *argv[])
         thing.handle(); 
     }
     /*------------------------------------*/
-
-    // RESET SENSOR_TRIGGED FLAG
-    ANY_SENSOR_TRIGGERED = false;
-    // This function will be called every time the device is connected to Thinger.io
-    thing.start();
     return 0;
 }
