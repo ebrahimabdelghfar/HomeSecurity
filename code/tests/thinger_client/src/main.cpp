@@ -30,15 +30,17 @@
 #define USER_ID             "Ahmedsecurity"
 #define DEVICE_ID           "TestPC"
 #define DEVICE_CREDENTIAL   "TNer1ANe2RYT5Dih"
+#define EMAIL_ENDPOINT_ID   "email"
 
 /* Define Pins */
 #define PIN_TEST_LED    3
 #define PIN_REED    2
 
-bool STATE = false;
-
-bool DASH_STATE = false;
-bool ANY_SENS = true;
+/* Define State variables */
+bool STATE = false; // LED switch state
+bool DASH_STATE = false; // Dashboard switch state
+bool ANY_SENS = true; // check if any sensor is on
+bool SENT_EMAILS = false; // check if any email was sent
 
 int main(int argc, char *argv[])
 {
@@ -87,8 +89,30 @@ int main(int argc, char *argv[])
         }
     };
 
-   /*MAIL PART*/
+   
 
+    /*------------------*/
+    /* End of Resources */
+   /*------------------*/
+
+
+   /*MAIL PART*/
+    while(true){
+        if(DASH_STATE && ANY_SENS){
+            if(!SENT_EMAILS){
+                pson data;
+                bool res = thing.call_endpoint(EMAIL_ENDPOINT_ID, data);
+                SENT_EMAILS = true;
+                std::cout << "EMAIL NO SENT: " << res << std::endl;
+            }  
+        }
+        else{
+            SENT_EMAILS = false;
+        }
+        thing.handle(); 
+    }
+    
+    // start thinger.io client
     thing.start();
     return 0;
 }

@@ -233,12 +233,6 @@ PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 //Enable build and isntall for Raspberry Pi
 RASPBERRY:BOOL=OFF
 
-//Path to a file.
-WiringPi_INCLUDE_DIR:PATH=WiringPi_INCLUDE_DIR-NOTFOUND
-
-//Path to a library.
-WiringPi_LIBRARIES:FILEPATH=WiringPi_LIBRARIES-NOTFOUND
-
 //Path to a library.
 pkgcfg_lib__OPENSSL_crypto:FILEPATH=/usr/lib/x86_64-linux-gnu/libcrypto.so
 
