@@ -48,10 +48,28 @@ const int PINS_NUM = 12;
 #define PIN_F_DOOR 21
 #define PIN_MASTER_BATH 27
 
+/* Define Pins States */
+bool STATE_OPE = false;
+bool STATE_LIVING_AND_NOOK = false;
+bool STATE_DEN_WIN = false;
+bool STATE_LAUNDRY_ROOM = false;
+bool STATE_115_GRR = false;
+bool STATE_FRONT_GUEST = false;
+bool STATE_STUDY = false;
+bool STATE_HALL = false;
+bool STATE_F_DOOR = false;
+bool STATE_MASTER_BATH = false;
+
+/* Define State variables */
+
 bool DASHBOARD_SECURITY_STATE = false; // Dashboard Security Switch State (ON/OFF)
 bool SENT_EMAILS = false; // Checks if any email was sent
 
-int SENSORS_TRIGGERED = 0; // Stores the number of triggered sensor (0-10)
+bool AnySensorOn(){ // Check if any sensor is on
+    return (STATE_OPE || STATE_LIVING_AND_NOOK || STATE_DEN_WIN || 
+    STATE_LAUNDRY_ROOM || STATE_115_GRR || STATE_FRONT_GUEST ||
+    STATE_STUDY || STATE_HALL || STATE_F_DOOR || STATE_MASTER_BATH);
+}
 
 int main(int argc, char *argv[])
 {
@@ -99,63 +117,55 @@ int main(int argc, char *argv[])
     /* Handle Pins I/O && update dashboard */
     // OPE pin
     thing["ope"] >> [](pson &out){
+        // read the pin value
         out = bool(digitalRead(PIN_OPE));
-        if(out) ++SENSORS_TRIGGERED;
-        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
+        // update the pin state variable
+        (out) ? STATE_OPE = true : STATE_OPE = false;
     };
     // Living and Nook pin
     thing["living_and_nook"] >> [](pson &out){
         out = bool(digitalRead(PIN_LIVING_AND_NOOK));
-        if(out) ++SENSORS_TRIGGERED;
-        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
+        (out) ? STATE_LIVING_AND_NOOK = true : STATE_LIVING_AND_NOOK = false;
     };
     // Den Window pin
     thing["den_window"] >> [](pson &out){
         out = bool(digitalRead(PIN_DEN_WIN));
-        if(out) ++SENSORS_TRIGGERED;
-        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
+        (out) ? STATE_DEN_WIN = true : STATE_DEN_WIN = false;
     };
     // Laundry Room pin
     thing["laundry_room"] >> [](pson &out){
         out = bool(digitalRead(PIN_LAUNDRY_ROOM));
-        if(out) ++SENSORS_TRIGGERED;
-        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
+        (out) ? STATE_LAUNDRY_ROOM = true : STATE_LAUNDRY_ROOM = false;
     };
     // 115 GRR pin
     thing["115_grr"] >> [](pson &out){
         out = bool(digitalRead(PIN_115_GRR));
-        if(out) ++SENSORS_TRIGGERED;
-        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
+        (out) ? STATE_115_GRR = true : STATE_115_GRR = false;
     };
     // Front Guest pin
     thing["front_guest"] >> [](pson &out){
         out = bool(digitalRead(PIN_FRONT_GUEST));
-        if(out) ++SENSORS_TRIGGERED;
-        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
+        (out) ? STATE_FRONT_GUEST = true : STATE_FRONT_GUEST = false;
     };
     // Study pin
     thing["study"] >> [](pson &out){
         out = bool(digitalRead(PIN_STUDY));
-        if(out) ++SENSORS_TRIGGERED;
-        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
+        (out) ? STATE_STUDY = true : STATE_STUDY = false;
     };
     // Hall pin
     thing["hall"] >> [](pson &out){
         out = bool(digitalRead(PIN_HALL));
-        if(out) ++SENSORS_TRIGGERED;
-        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
+        (out) ? STATE_HALL = true : STATE_HALL = false;
     };
     // Front Door pin
     thing["front_door"] >> [](pson &out){
         out = bool(digitalRead(PIN_F_DOOR));
-        if(out) ++SENSORS_TRIGGERED;
-        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
+        (out) ? STATE_F_DOOR = true : STATE_F_DOOR = false;
     };
     // Master Bath pin
     thing["master_bath"] >> [](pson &out){
         out = bool(digitalRead(PIN_MASTER_BATH));
-        if(out) ++SENSORS_TRIGGERED;
-        else SENSORS_TRIGGERED = std::max(0, SENSORS_TRIGGERED-1);
+        (out) ? STATE_MASTER_BATH = true : STATE_MASTER_BATH = false;
     };
     // Siren pin
     thing["siren"] << [](pson &in){
@@ -166,29 +176,25 @@ int main(int argc, char *argv[])
         else{
             // This code is called whenever the "led" resource change
             DASHBOARD_SECURITY_STATE = in;
-            if(DASHBOARD_SECURITY_STATE && SENSORS_TRIGGERED){
-                digitalWrite(PIN_SIREN, HIGH);
-            }
-            else{
-                digitalWrite(PIN_SIREN, LOW);
-            }
         }
     };
     /*------------------------------------*/
 
     /* Handle Email Endpoint*/
     while(true){
-        if(DASHBOARD_SECURITY_STATE && SENSORS_TRIGGERED){
+        if(DASHBOARD_SECURITY_STATE && AnySensorOn()){
+            digitalWrite(PIN_SIREN, HIGH); // Turn on Siren
             if(!SENT_EMAILS){
                 pson data;
                 bool res = thing.call_endpoint(EMAIL_ENDPOINT_ID, data);
                 SENT_EMAILS = true;
-                std::cout << "EMAIL NO SENT: " << res << std::endl;
             }  
         }
         else{
+            digitalWrite(PIN_SIREN, LOW); // Turn off Siren
             SENT_EMAILS = false;
         }
+        // handle thinger.io connection
         thing.handle(); 
     }
     /*------------------------------------*/

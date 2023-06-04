@@ -37,10 +37,15 @@
 #define PIN_REED    2
 
 /* Define State variables */
-bool SENS_STATE = false; // LED switch state
+bool SENS1_STATE = false; // LED switch state
+bool SENS2_STATE = false; // LED switch state
 bool DASH_STATE = false; // Dashboard switch state
 int ANY_SENS = 0; // check if any sensor is on
 bool SENT_EMAILS = false; // check if any email was sent
+
+bool AnySensorOn(){
+    return (SENS1_STATE || SENS2_STATE);
+}
 
 int main(int argc, char *argv[])
 {
@@ -72,23 +77,25 @@ int main(int argc, char *argv[])
     */
 
     //
-    thing["AnySensor"] << [](pson &in){
+    thing["Sensor1"] << [](pson &in){
         if(in.is_empty()){
             // We send back the pin value to thinger platform
-            in = SENS_STATE;
+            in = SENS1_STATE;
         } 
         else{
             // This code is called whenever the "led" resource change
-            SENS_STATE = in;
-            if(SENS_STATE){
-                ANY_SENS++;
-            }
-            else{
-                ANY_SENS--;
-            }   
+            SENS1_STATE = in; 
         }
-        //
-        std::cout << "Any Sensor is: " << ANY_SENS << std::endl;
+    };
+    thing["Sensor2"] << [](pson &in){
+        if(in.is_empty()){
+            // We send back the pin value to thinger platform
+            in = SENS2_STATE;
+        } 
+        else{
+            // This code is called whenever the "led" resource change
+            SENS2_STATE = in;  
+        }
     };
 
     // SIREN PART
@@ -100,12 +107,6 @@ int main(int argc, char *argv[])
         else{
             // This code is called whenever the "led" resource change
             DASH_STATE = in;
-            if(DASH_STATE && ANY_SENS){
-                std::cout << "Siren is ON: WIWAWIWAWIWA" << std::endl;
-            }
-            else{
-                std::cout << "Siren is OFF: ZZZZZZZZZ" << std::endl;
-            }
         }
     };
     /*------------------*/
@@ -115,8 +116,11 @@ int main(int argc, char *argv[])
    /*MAIL PART*/
     while(true){
         thing.handle();
-        std::cout << "DASH STATE: " << DASH_STATE << " || " << "ANY SENSOR STATE: " << ANY_SENS << std::endl;
-        if(DASH_STATE && ANY_SENS){
+        std::cout << "DASH STATE: " << DASH_STATE << " || " << "SENSOR1 STATE: " << SENS1_STATE <<
+        " || SENSOR2 STATE: " << SENS2_STATE << std::endl;
+
+        if(DASH_STATE && AnySensorOn()){
+            std::cout << "Siren is ON: WIWAWIWAWIWA" << std::endl;
             if(!SENT_EMAILS){
                 pson data;
                 thing.call_endpoint(EMAIL_ENDPOINT_ID, data);
@@ -125,6 +129,7 @@ int main(int argc, char *argv[])
         }
         else{
             SENT_EMAILS = false;
+            std::cout << "Siren is OFF: ZZZZZZZZZ" << std::endl;
         }
     }
     return 0;
