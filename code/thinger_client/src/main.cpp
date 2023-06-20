@@ -27,9 +27,9 @@
 
 
 /* User Credentials */
-#define USER_ID             "Ahmedsecurity"
-#define DEVICE_ID           "TestRaspberry"
-#define DEVICE_CREDENTIAL   "h6PGGctC1zQTsrtP"
+#define USER_ID             ""
+#define DEVICE_ID           ""
+#define DEVICE_CREDENTIAL   ""
 #define EMAIL_ENDPOINT_ID   "email"
 
 /* Define Pins */
