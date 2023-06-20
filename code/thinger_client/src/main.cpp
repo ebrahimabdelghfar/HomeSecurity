@@ -27,9 +27,9 @@
 
 
 /* User Credentials */
-#define USER_ID             "Ahmedsecurity"
+#define USER_ID             ""
 #define DEVICE_ID           "TestRaspberry"
-#define DEVICE_CREDENTIAL   "h6PGGctC1zQTsrtP"
+#define DEVICE_CREDENTIAL   ""
 
 /* Define Pins */
 const int PINS_NUM = 12;
