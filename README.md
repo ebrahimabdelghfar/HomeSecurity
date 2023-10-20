@@ -1,5 +1,5 @@
 # HomeSecurity
-This procject aim to modify an old home security system to a modern security system that can be monitored through the inetrnet using the platform **ThingerIo** and a **raspberry Pi 2B**
+This project aims to modify an old home security system to a modern security system that can be monitored through the Internet using the platform **ThingerIo** and a **Raspberry Pi 2B**
 # Used platforms
 
 <p align="center">
